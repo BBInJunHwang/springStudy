@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="greeter" class="com.study.maven.ijhwang.ch01.Greeter">
+		<property name="format" value="%s, 안녕하세요!" />
+	</bean>
+
+	<bean id="memberDao" class="com.study.maven.ijhwang.ch01.dao.MemberDao" />
+	
+	<bean id="memberService" class="com.study.maven.ijhwang.ch01.service.MemberRegisterService">
+		<constructor-arg ref="memberDao" />	<!-- memberDao빈 객체를 생성사로 전달한다. -->
+	</bean>
+	
+	<bean id="changePasswordService" class="com.study.maven.ijhwang.ch01.service.ChangePasswordService">
+		<constructor-arg ref="memberDao" />	
+	</bean>
+
+</beans>

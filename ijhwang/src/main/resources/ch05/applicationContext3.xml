@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd">
+
+	
+	
+	<!-- @Componect, @Service, @Repository등 빈 선언한 class 탐색 -->
+	<context:component-scan base-package="com.study.maven.ijhwang.ch05"/>
+	
+	<!-- commonService2 클래스 내  SelectService2 메소드에 대해서만 호출하도록 지정한다. -->
+	<bean id="classPointCut" class="org.springframework.aop.support.NameMatchMethodPointcut">
+		<property name="mappedName" value="SelectService2" />
+	</bean>
+	
+	<!-- pointcut 과   ProxyFactoryBean 연결하는 작업 -->
+	<bean id="classBeforeAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<!-- 미리 해당 값들은 정해져 있으며, setAdvice,setPointcut 설정에 대해서 값을 넣어주는거임 -->
+		<property name="advice" ref="logBeforeAdvice" />
+		<property name="pointcut" ref="classPointCut" /> 
+	</bean>
+	
+	<bean id="classAfterAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<!-- 미리 해당 값들은 정해져 있으며, setAdvice,setPointcut 설정에 대해서 값을 넣어주는거임 -->
+		<property name="advice" ref="logAfterReturningAdvice" />
+		<property name="pointcut" ref="classPointCut" /> 
+	</bean>
+	
+	<bean id="commonService2" class="com.study.maven.ijhwang.ch05.service.CommonServiceImpl2" />
+	<bean id="logAroundAdvice" class="com.study.maven.ijhwang.ch05.aop.LogAroundAdvice" />
+	<bean id="logBeforeAdvice" class="com.study.maven.ijhwang.ch05.aop.LogBeforeAdvice" />
+	<bean id="logAfterReturningAdvice" class="com.study.maven.ijhwang.ch05.aop.LogAfterReturningAdvice" />
+	<bean id="logAfterThrowingAdvice" class="com.study.maven.ijhwang.ch05.aop.LogAfterThrowingAdvice" />
+	
+	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<!-- 타켓 클래스와 보조업무들 세팅이 필요하다. -->
+		<property name="target" ref="commonService2" />
+		<property name="interceptorNames">
+			<list>
+				<value>logAroundAdvice</value>
+				<value>classBeforeAdvisor</value>
+				<value>classAfterAdvisor</value>
+				<value>logAfterThrowingAdvice</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="userList" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<bean class="com.study.maven.ijhwang.ch05.vo.UserVO" p:userId="ijhwang1" p:userName="인준1" p:userMail="ijhwang1@naver.com" />
+				<bean class="com.study.maven.ijhwang.ch05.vo.UserVO" p:userId="ijhwang2" p:userName="인준2" p:userMail="ijhwang2@naver.com" />
+				<bean class="com.study.maven.ijhwang.ch05.vo.UserVO" p:userId="ijhwang3" p:userName="인준3" p:userMail="ijhwang3@naver.com" />
+			</list>
+		</constructor-arg>
+	</bean>
+	
+</beans>

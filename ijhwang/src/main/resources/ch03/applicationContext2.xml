@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- @Autowired 사용하기 위해 처리 -->
+	<context:annotation-config />
+
+	<bean id="memberDao" class="com.study.maven.ijhwang.ch03.dao.MemberDao" />
+	
+	<bean id="memberService" class="com.study.maven.ijhwang.ch03.service.MemberRegisterService" />
+	
+	<bean id="changePasswordService" class="com.study.maven.ijhwang.ch03.service.ChangePasswordService" />
+	
+	<bean id="memberPrinter1" class="com.study.maven.ijhwang.ch03.util.MemberPrinter">
+		<qualifier value="test" />
+	</bean>
+	
+	<bean id="memberPrinter2" class="com.study.maven.ijhwang.ch03.util.MemberPrinter" />
+	
+	<bean id="memberInfoPrinter" class="com.study.maven.ijhwang.ch03.service.MemberInfoPrinter" />
+	
+	<bean id="listPrinter" class="com.study.maven.ijhwang.ch03.service.MemberListPrinter" />
+	
+	
+	<bean id="versionPrinter" class="com.study.maven.ijhwang.ch03.util.VersionPrinter">
+		<property name="majorVersion">
+			<value>4</value>
+		</property>
+		<property name="minorVersion" value="23" />
+	</bean>
+
+</beans>

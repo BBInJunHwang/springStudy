@@ -1,0 +1,25 @@
+package com.study.maven.ijhwang.ch04;
+
+import java.util.List;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+
+import com.study.maven.ijhwang.ch04.service.CommonService;
+
+public class Main2 {
+
+	public static void main(String[] args) throws InterruptedException {
+		ApplicationContext ctx = new GenericXmlApplicationContext("classpath:ch04/applicationContext1.xml");
+		
+		CommonService commonService = ctx.getBean(CommonService.class);
+		try {
+			List<?> list = (List<?>) commonService.SelectService(null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+}

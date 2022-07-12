@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- @Autowired 사용하기 위해 처리 -->
+	<context:annotation-config />
+
+	<bean id="memberDao" class="com.study.maven.ijhwang.ch03.dao.MemberDao" />
+	
+	<bean id="memberService" class="com.study.maven.ijhwang.ch03.service.MemberRegisterService">
+		<!-- <constructor-arg ref="memberDao" /> -->	<!-- Autowired 적용으로 생략 -->
+	</bean>
+	
+	<bean id="changePasswordService" class="com.study.maven.ijhwang.ch03.service.ChangePasswordService">
+		<!-- <constructor-arg ref="memberDao" /> --> <!-- Autowired 적용으로 생략 -->
+	</bean>
+	
+	<bean id="memberPrinter" class="com.study.maven.ijhwang.ch03.util.MemberPrinter" />
+	
+	<bean id="listPrinter" class="com.study.maven.ijhwang.ch03.service.MemberListPrinter">
+		<!-- <constructor-arg ref="memberDao" />	 --> <!-- Autowired 적용으로 생략 -->
+		<!-- <constructor-arg ref="memberPrinter" /> --> <!-- Autowired 적용으로 생략 -->
+	</bean>
+
+	<bean id="memberInfoPrinter" class="com.study.maven.ijhwang.ch03.service.MemberInfoPrinter">
+		<!-- <property name="memberDao" ref="memberDao" /> --> <!-- Autowired 적용으로 생략 -->
+		<!-- <property name="memberPrinter" ref="memberPrinter" /> -->
+	</bean>
+	
+	<bean id="versionPrinter" class="com.study.maven.ijhwang.ch03.util.VersionPrinter">
+		<property name="majorVersion">
+			<value>4</value>
+		</property>
+		<property name="minorVersion" value="23" />
+	</bean>
+
+</beans>
